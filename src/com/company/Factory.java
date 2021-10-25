@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Factory extends Thread {
+public class Factory {
 
     private Robot robot = new Robot();
 
