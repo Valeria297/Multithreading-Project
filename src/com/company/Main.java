@@ -3,19 +3,25 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        Thread factory = new Thread(Factory::makeDetail);
-        Thread greatBritain = new Thread(GreatBritainArmy::takeDetail);
-        Thread france = new Thread(FranceArmy::takeDetail);
-        factory.start();
-        greatBritain.start();
-        france.start();
-        factory.join();
-        greatBritain.join();
-        france.join();
+        Factory factory = new Factory();
+        Thread mainThread = new Thread(factory);
 
-        if(greatBritain.isAlive()) {
+        CountriesArmy greatBritain = new CountriesArmy();
+        CountriesArmy france = new CountriesArmy();
+
+        Thread t1 = new Thread(greatBritain);
+        Thread t2 = new Thread(france);
+
+        mainThread.start();
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
+
+        if(!t1.isAlive()) {
             try{
-                greatBritain.join();
+                t1.join();
             } catch(InterruptedException e){}
 
             System.out.println("The Great Britain won!");
@@ -25,4 +31,5 @@ public class Main {
 
         System.out.println("The war is over!");
     }
+
 }

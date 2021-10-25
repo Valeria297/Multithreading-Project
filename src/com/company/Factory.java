@@ -5,59 +5,37 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Factory {
+public class Factory extends Thread {
 
     private Robot robot = new Robot();
-    protected static final List<Robot> ROBOT_DETAILS = new LinkedList<>();
 
-    protected static boolean makeDetail() {
-        List<Robot> ROBOT_PARTS = new LinkedList<>();
-        ROBOT_PARTS.add(Robot.getHead());
-        ROBOT_PARTS.add(Robot.getBody());
-        ROBOT_PARTS.add(Robot.getLeftHand());
-        ROBOT_PARTS.add(Robot.getRightHand());
-        ROBOT_PARTS.add(Robot.getLeftLeg());
-        ROBOT_PARTS.add(Robot.getRightLeg());
+    protected boolean makeDetail(String[] details) {
+        String[] robotDetails = robot.returnRobotParts();
 
         try {
-            int value = 0;
-            while (ROBOT_DETAILS.isEmpty()) {
-                synchronized (ROBOT_DETAILS) {
-                    while (ROBOT_DETAILS.size() == 20) {
-                        ROBOT_DETAILS.wait(2000);
+            while (true) {
+                synchronized (robotDetails) {
+                    for (int i = 0; i < details.length; i++) {
+                        returnDetails(robotDetails, details[i]);
                     }
-                    Thread.sleep(5000);
-                    Object ob = random(ROBOT_PARTS);
-                    ROBOT_DETAILS.add((Robot) ob);
-                    System.out.println("Detail-maker create: " + ++value);
+                    System.out.println("Details was created...");
+                    Thread.sleep(2000);
                 }
             }
-        } catch (InterruptedException ignored) {
-        }
+        } catch (InterruptedException ignored) {}
         return false;
     }
 
-    public static <T> T random(Collection<T> list) {
-        int num = (int) (Math.random() * list.size());
-        for (T t : list) {
-            if (--num < 0) {
-                return t;
+    protected String returnDetails(String[] robParts, String str) {
+        String string = " ";
+        for (int i = 0; i < robParts.length; i++) {
+            if (robParts[i].equals(str)) {
+                string = str;
+            } else {
+                return null;
             }
         }
-        throw new AssertionError();
-    }
-
-    protected static List<Robot> returnDetails() {
-        List<Robot> list = new LinkedList<>();
-
-        while(!ROBOT_DETAILS.isEmpty()) {
-            for (int i = 0; i < ROBOT_DETAILS.size(); i++) {
-                Robot ob = ROBOT_DETAILS.get(i);
-                list.add(ob);
-            }
-            return list;
-        }
-        return null;
+        return str;
     }
 
 }
