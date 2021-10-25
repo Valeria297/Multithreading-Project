@@ -4,7 +4,6 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         Factory factory = new Factory();
-        Thread mainThread = new Thread(factory);
 
         CountriesArmy greatBritain = new CountriesArmy();
         CountriesArmy france = new CountriesArmy();
@@ -12,7 +11,6 @@ public class Main {
         Thread t1 = new Thread(greatBritain);
         Thread t2 = new Thread(france);
 
-        mainThread.start();
         t1.start();
         t2.start();
 
