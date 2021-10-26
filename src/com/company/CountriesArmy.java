@@ -8,9 +8,14 @@ public class CountriesArmy implements Runnable {
     private Robot robot = new Robot();
     private Factory factory = new Factory();
     private List<String> army = new LinkedList<>();
+    private boolean counter = true;
 
     public List<String> getArmy() {
         return army;
+    }
+
+    public boolean isCounter() {
+        return counter;
     }
 
     @Override
@@ -18,16 +23,15 @@ public class CountriesArmy implements Runnable {
         String[] details = robot.returnRobotParts();
         int count = 0;
 
+        if (count >= 20) {
+            counter = false;
+        }
+
         try {
-            while (count < 20) {
+            while (counter) {
                 while (factory.makeDetail(details)) {
-                    for (int i = 0, j = 3; j < details.length; i++, j++) {
-                        String[] tempArr = new String[2];
-                        tempArr[0] = details[i];
-                        tempArr[1] = details[j];
-                        army.add(String.valueOf(factory.makeDetail(tempArr)));
-                        System.out.println("Details have been accepted!");
-                    }
+                    army.add(String.valueOf(factory.makeDetail(robot.returnRandomRobotParts())));
+                    System.out.println("Details have been accepted!");
                     count++;
                 }
             }

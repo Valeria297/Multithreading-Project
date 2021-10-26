@@ -7,18 +7,21 @@ public class Main {
         CountriesArmy greatBritain = new CountriesArmy();
         CountriesArmy france = new CountriesArmy();
 
-        Thread t1 = new Thread(greatBritain);
-        Thread t2 = new Thread(france);
+        Thread factoryThread = new Thread(factory);
+        Thread army1 = new Thread(greatBritain);
+        Thread army2 = new Thread(france);
 
-        t1.start();
-        t2.start();
+        factoryThread.start();
+        army1.start();
+        army2.start();
 
-        t1.join();
-        t2.join();
+        factoryThread.join();
+        army1.join();
+        army2.join();
 
-        if(!t1.isAlive()) {
+        if(!army1.isAlive()) {
             try{
-                t1.join();
+                army1.join();
             } catch(InterruptedException e){}
 
             System.out.println("The Great Britain won!");

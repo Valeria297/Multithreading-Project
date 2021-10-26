@@ -5,15 +5,16 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Factory {
+public class Factory extends Thread {
 
     private Robot robot = new Robot();
+    private CountriesArmy cA = new CountriesArmy();
 
     protected boolean makeDetail(String[] details) {
         String[] robotDetails = robot.returnRobotParts();
 
         try {
-            while (true) {
+            while (cA.isCounter()) {
                 synchronized (robotDetails) {
                     for (int i = 0; i < details.length; i++) {
                         returnDetails(robotDetails, details[i]);
