@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CountriesArmy implements Runnable {
-
+    private Storage storage = new Storage();
     private Robot robot = new Robot();
     private Factory factory = new Factory();
     private List<String> army = new LinkedList<>();
@@ -29,15 +29,17 @@ public class CountriesArmy implements Runnable {
 
         try {
             while (counter) {
-                while (factory.makeDetail(details)) {
-                    army.add(String.valueOf(factory.makeDetail(robot.returnRandomRobotParts())));
-                    System.out.println("Details have been accepted!");
-                    count++;
+                synchronized (storage.getDetails()) {
+                    while (factory.makeDetail(details)) {
+                        army.add(String.valueOf(factory.makeDetail(robot.returnRandomRobotParts())));
+                        System.out.println("Details have been accepted!");
+                        count++;
+                    }
                 }
             }
             Thread.sleep(1000);
-        } catch (InterruptedException ignored) {
-        }
+        } catch (InterruptedException ignored) {}
 
     }
+
 }

@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Factory extends Thread {
-
+    private Storage storage = new Storage();
     private Robot robot = new Robot();
     private CountriesArmy cA = new CountriesArmy();
 
@@ -15,9 +15,9 @@ public class Factory extends Thread {
 
         try {
             while (cA.isCounter()) {
-                synchronized (robotDetails) {
+                synchronized (storage.getDetails()) {
                     for (int i = 0; i < details.length; i++) {
-                        returnDetails(robotDetails, details[i]);
+                        storage.addToDetailsList(returnDetails(robotDetails, details[i]));
                     }
                     System.out.println("Details was created...");
                     Thread.sleep(2000);
