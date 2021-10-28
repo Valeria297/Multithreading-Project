@@ -45,12 +45,20 @@ public class CountriesArmy implements Runnable {
                             army.add((String) storage.takeDetailFromList("Left leg"));
                         }
                         System.out.println("Details have been accepted!");
-                        count++;
+
+                       if (army.contains("Head") && army.contains("Body")
+                       && army.contains("Right hand") && army.contains("Left hand")
+                       && army.contains("Right leg") && army.contains("Left leg")) {
+                           count++;
+                       }
+
                     }
                 }
             }
             Thread.sleep(1000);
         } catch (InterruptedException ignored) {}
+
+
 
     }
 
