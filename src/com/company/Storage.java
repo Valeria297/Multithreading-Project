@@ -19,14 +19,15 @@ public class Storage {
         details.remove(temp);
     }
 
-    protected String takeDetailFromList(String str) {
+    protected Object takeDetailFromList(String str) {
         String temp = " ";
         for (int i = 0; i < details.size(); i++) {
             if (str.equals(details.get(i))) {
                 temp = details.get(i);
+                return temp;
             }
         }
-        return temp;
+        return false;
     }
 
     public LinkedList<String> getDetails() {

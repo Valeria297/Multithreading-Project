@@ -31,7 +31,19 @@ public class CountriesArmy implements Runnable {
             while (counter) {
                 synchronized (storage.getDetails()) {
                     while (factory.makeDetail(details)) {
-                        army.add(String.valueOf(factory.makeDetail(robot.returnRandomRobotParts())));
+                        if (!storage.takeDetailFromList("Head").equals(false)) {
+                            army.add((String) storage.takeDetailFromList("Head"));
+                        } else if (!storage.takeDetailFromList("Body").equals(false)) {
+                            army.add((String) storage.takeDetailFromList("Body"));
+                        } else if (!storage.takeDetailFromList("Right hand").equals(false)) {
+                            army.add((String) storage.takeDetailFromList("Right hand"));
+                        } else if (!storage.takeDetailFromList("Left hand").equals(false)) {
+                            army.add((String) storage.takeDetailFromList("Left hand"));
+                        } else if (!storage.takeDetailFromList("Right leg").equals(false)) {
+                            army.add((String) storage.takeDetailFromList("Right leg"));
+                        } else if (!storage.takeDetailFromList("Left leg").equals(false)) {
+                            army.add((String) storage.takeDetailFromList("Left leg"));
+                        }
                         System.out.println("Details have been accepted!");
                         count++;
                     }
