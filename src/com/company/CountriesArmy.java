@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ public class CountriesArmy implements Runnable {
     private Storage storage = new Storage();
     private Robot robot = new Robot();
     private Factory factory = new Factory();
-    private List<String> army = new LinkedList<>();
+    private ArrayList<String> army = new ArrayList<>(6);
     private boolean counter = true;
 
     public List<String> getArmy() {
@@ -50,15 +51,13 @@ public class CountriesArmy implements Runnable {
                        && army.contains("Right hand") && army.contains("Left hand")
                        && army.contains("Right leg") && army.contains("Left leg")) {
                            count++;
+                           army.clear();
                        }
-
                     }
                 }
             }
             Thread.sleep(1000);
         } catch (InterruptedException ignored) {}
-
-
 
     }
 
