@@ -15,10 +15,10 @@ public class Storage {
         String temp = " ";
         for (int i = 0; i < details.size(); i++) {
             if (str.equals(details.get(i))) {
-                return details.remove(i);
+                temp = details.remove(i);
             }
         }
-        return null;
+              return temp;
     }
 
 }
