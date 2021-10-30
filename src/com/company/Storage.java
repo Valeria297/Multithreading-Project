@@ -1,37 +1,24 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Storage {
-    private LinkedList<String> details = new LinkedList<>();
+    private final List<String> details = new ArrayList<>();
 
-    protected void addToDetailsList(String str) {
+    public void addToDetailsList(String str) {
         details.add(str);
     }
 
-    protected void deleteFromDetailsList(String str) {
+    public String takeDetailFromList(String str) {
         String temp = " ";
         for (int i = 0; i < details.size(); i++) {
             if (str.equals(details.get(i))) {
-                temp = str;
+                return details.remove(i);
             }
         }
-        details.remove(temp);
-    }
-
-    protected Object takeDetailFromList(String str) {
-        String temp = " ";
-        for (int i = 0; i < details.size(); i++) {
-            if (str.equals(details.get(i))) {
-                temp = details.get(i);
-                return temp;
-            }
-        }
-        return false;
-    }
-
-    public LinkedList<String> getDetails() {
-        return details;
+        return null;
     }
 
 }
