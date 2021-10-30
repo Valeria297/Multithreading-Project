@@ -36,36 +36,34 @@ public class CountriesArmy implements Runnable {
 
         try {
             while (counter) {
-                while (true) {
-                    if (!storage.takeDetailFromList("Head").equals(false)
-                            && !army.contains("Head")) {
-                        army.add((String) storage.takeDetailFromList("Head"));
-                    } else if (!storage.takeDetailFromList("Body").equals(false)
-                            && !army.contains("Body")) {
-                        army.add((String) storage.takeDetailFromList("Body"));
-                    } else if (!storage.takeDetailFromList("Right hand").equals(false)
-                            && !army.contains("Right hand")) {
-                        army.add((String) storage.takeDetailFromList("Right hand"));
-                    } else if (!storage.takeDetailFromList("Left hand").equals(false)
-                            && !army.contains("Left hand")) {
-                        army.add((String) storage.takeDetailFromList("Left hand"));
-                    } else if (!storage.takeDetailFromList("Right leg").equals(false)
-                            && !army.contains("Right leg")) {
-                        army.add((String) storage.takeDetailFromList("Right leg"));
-                    } else if (!storage.takeDetailFromList("Left leg").equals(false)
-                            && !army.contains("Left leg")) {
-                        army.add((String) storage.takeDetailFromList("Left leg"));
-                    }
-                    System.out.println("Details have been accepted!");
-
-                    if (army.contains("Head") && army.contains("Body")
-                            && army.contains("Right hand") && army.contains("Left hand")
-                            && army.contains("Right leg") && army.contains("Left leg")) {
-                        count++;
-                        army.clear();
-                    }
-
+                if (!storage.takeDetailFromList("Head").equals(null)
+                        && !army.contains("Head")) {
+                    army.add((String) storage.takeDetailFromList("Head"));
+                } else if (!storage.takeDetailFromList("Body").equals(null)
+                        && !army.contains("Body")) {
+                    army.add((String) storage.takeDetailFromList("Body"));
+                } else if (!storage.takeDetailFromList("Right hand").equals(null)
+                        && !army.contains("Right hand")) {
+                    army.add((String) storage.takeDetailFromList("Right hand"));
+                } else if (!storage.takeDetailFromList("Left hand").equals(null)
+                        && !army.contains("Left hand")) {
+                    army.add((String) storage.takeDetailFromList("Left hand"));
+                } else if (!storage.takeDetailFromList("Right leg").equals(null)
+                        && !army.contains("Right leg")) {
+                    army.add((String) storage.takeDetailFromList("Right leg"));
+                } else if (!storage.takeDetailFromList("Left leg").equals(null)
+                        && !army.contains("Left leg")) {
+                    army.add((String) storage.takeDetailFromList("Left leg"));
                 }
+                System.out.println("Details have been accepted!");
+
+                if (army.contains("Head") && army.contains("Body")
+                        && army.contains("Right hand") && army.contains("Left hand")
+                        && army.contains("Right leg") && army.contains("Left leg")) {
+                    count++;
+                    army.clear();
+                }
+
 
             }
             Thread.sleep(1000);
