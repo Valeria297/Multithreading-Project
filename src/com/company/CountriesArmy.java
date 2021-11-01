@@ -10,10 +10,7 @@ public class CountriesArmy implements Runnable {
     private ArrayList<String> army = new ArrayList<>(6);
     private boolean counter = true;
 
-    CountriesArmy() {
-    }
-
-    CountriesArmy(Storage storage) {
+    CountriesArmy (Storage storage) {
         this.storage = storage;
     }
 
@@ -63,7 +60,6 @@ public class CountriesArmy implements Runnable {
                     count++;
                     army.clear();
                 }
-
 
             }
             Thread.sleep(1000);

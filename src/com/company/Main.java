@@ -1,28 +1,43 @@
 package com.company;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        Factory factory = new Factory();
-        CountriesArmy greatBritain = new CountriesArmy();
-        CountriesArmy france = new CountriesArmy();
+        AtomicBoolean flag = new AtomicBoolean(true);
+
+        Factory factory = new Factory(new Storage(), flag);
+        CountriesArmy greatBritain = new CountriesArmy(new Storage());
+        CountriesArmy france = new CountriesArmy(new Storage());
 
         Thread factoryThread = new Thread(factory);
         Thread army1 = new Thread(greatBritain);
         Thread army2 = new Thread(france);
 
-        factoryThread.start();
-        army1.start();
-        army2.start();
+        try {
+            while (flag.equals(true)) {
+                factoryThread.start();
+                army1.start();
+                army2.start();
 
-        factoryThread.join();
-        army1.join();
-        army2.join();
-
-        if(!army1.isAlive()) {
-            try{
+                factoryThread.join();
                 army1.join();
-            } catch(InterruptedException e){}
+                army2.join();
+
+               if (!greatBritain.isCounter() || !france.isCounter()){
+                   flag.set(false);
+               }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (!army1.isAlive()) {
+            try {
+                army1.join();
+            } catch (InterruptedException e) {
+            }
 
             System.out.println("The Great Britain won!");
         } else {

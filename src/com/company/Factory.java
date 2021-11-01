@@ -4,30 +4,30 @@ package com.company;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Factory extends Thread {
     private Storage storage;
     private Robot robot = new Robot();
+    private static AtomicBoolean flag = new AtomicBoolean();
 
-    Factory() {}
-
-    Factory (Storage storage) {
+    Factory(Storage storage, AtomicBoolean flag) {
         this.storage = storage;
+        this.flag = flag;
     }
 
     protected void makeDetail(String[] details) {
         String[] robotDetails = robot.returnRobotParts();
 
         try {
-            while (true) {
+            while (flag.get()) {
                 for (int i = 0; i < details.length; i++) {
                     storage.addToDetailsList(details[i]);
                 }
                 System.out.println("Details was created...");
                 Thread.sleep(2000);
             }
-        } catch (InterruptedException ignored) {
-        }
+        } catch (InterruptedException ignored) {}
     }
 
 }
