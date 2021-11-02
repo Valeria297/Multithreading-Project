@@ -6,45 +6,24 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         AtomicBoolean flag = new AtomicBoolean(true);
+        Storage storage = new Storage();
 
-        Factory factory = new Factory(new Storage(), flag);
-        CountriesArmy greatBritain = new CountriesArmy(new Storage());
-        CountriesArmy france = new CountriesArmy(new Storage());
+        Factory factory = new Factory(storage, flag);
+        CountriesArmy greatBritain = new CountriesArmy("Great Britain", storage, flag);
+        CountriesArmy france = new CountriesArmy("France", storage, flag);
 
-        Thread factoryThread = new Thread(factory);
-        Thread army1 = new Thread(greatBritain);
-        Thread army2 = new Thread(france);
+        Thread factoryThread = new Thread(factory::makeDetail);
+        Thread army1 = new Thread(greatBritain::run);
+        Thread army2 = new Thread(france::run);
 
-        try {
-            while (flag.equals(true)) {
-                factoryThread.start();
-                army1.start();
-                army2.start();
+        factoryThread.start();
+        army1.start();
+        army2.start();
 
-                factoryThread.join();
-                army1.join();
-                army2.join();
+        army1.join();
+        army2.join();
+        factoryThread.join();
 
-               if (!greatBritain.isCounter() || !france.isCounter()){
-                   flag.set(false);
-               }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (!army1.isAlive()) {
-            try {
-                army1.join();
-            } catch (InterruptedException e) {
-            }
-
-            System.out.println("The Great Britain won!");
-        } else {
-            System.out.println("France won!");
-        }
-
-        System.out.println("The war is over!");
     }
 
 }
