@@ -39,9 +39,7 @@ public class CountriesArmy {
                 }
                 details.addAll(Arrays.asList(Robot.returnRobotParts()));
             }
-
         }
-
     }
 
 }
